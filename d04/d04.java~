@@ -1,0 +1,101 @@
+import java.io.*;
+import java.util.*;
+import java.util.regex.*;
+
+class d04 {
+
+    public static void main(String[] args) {
+
+        // read file into string with respecting of line ends
+        
+        int width=0, height=0;
+        String data = new String();
+        StringBuilder builder = new StringBuilder();        
+        try (	
+                BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
+        ) {
+                String line;
+                while((line = reader.readLine()) != null) {
+                    builder.append(line).append("\n");
+                    height++;                    
+                    width = (width==0) ? line.length() : width;
+                }
+                reader.close();
+                data = builder.toString();
+        } catch (Exception ex) {
+                ex.printStackTrace();
+        }
+
+        char[][] matrix = new char[height][width];
+
+        int count = 0, x = 0, y = 0;
+        Pattern xmasPat, samxPat;
+        String line = null;
+        
+        xmasPat = Pattern.compile("XMAS");
+        samxPat = Pattern.compile("SAMX");
+        
+        BufferedReader bufReader = new BufferedReader(new StringReader(data));       
+
+        try {        
+            while ((line = bufReader.readLine()) != null) {
+
+                // countin two directions: horizontal forwards and backwars
+                Matcher xmasMat = xmasPat.matcher(line);       
+                Matcher samxMat = samxPat.matcher(line);
+                
+                count += xmasMat.results().count();
+                count += samxMat.results().count();
+
+                // rotating matrix                
+                for(x=0;x<line.length();x++) {
+                    matrix[x][y] = line.charAt(x);
+                }
+                
+            y++;                
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        String rotated = new String();
+        
+        for(y=0;y<height;y++) {
+            rotated += new String(matrix[y]);
+            rotated += "\n";
+        }
+
+        bufReader = new BufferedReader(new StringReader(rotated));       
+
+        try {        
+            while ((line = bufReader.readLine()) != null) {
+                // countin two directions: horizontal forwards and backwars
+                Matcher xmasMat = xmasPat.matcher(line);       
+                Matcher samxMat = samxPat.matcher(line);
+                count += xmasMat.results().count();
+                count += samxMat.results().count();
+            }            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        
+        for (y=0; y<height-4; y++) {
+            for (x=0; y<width-4; y++) {        
+                if(matrix[y][x]=="X" && matrix[y+1][x+1]=="M" && matrix[y+2][x+2]=="A" && matrix[y+3][x+3]=="S") {
+                    count++;
+                }
+                if(matrix[y][x]=="S" && matrix[y+1][x+1]=="A" && matrix[y+2][x+2]=="M" && matrix[y+3][x+3]=="X") {
+                    count++;
+                }
+            }
+        }
+        
+        
+        System.out.print("XMAS count: ");
+        System.out.println(count);
+
+//        System.out.println(rotated);
+
+        
+    }    
+}
