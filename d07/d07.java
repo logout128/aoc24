@@ -12,7 +12,7 @@ class d07 {
         numbers = new ArrayList();
         
         try (	
-                BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader("sample.txt"));
         ) {
                 String line = reader.readLine();
                 while(line != null) {
@@ -32,31 +32,37 @@ class d07 {
                 ex.printStackTrace();
         }
 
-    for(int i=0;i<results.size();i++) {
-        
-        System.out.println(results.get(i));
-        System.out.println(numbers.get(i));
-        
-        int digits = (numbers.get(i).size()-1);
-        
-        for(int b=0;b<Math.pow(2,digits); b++) {        
-            String binNum = String.format("%"+Integer.toString(digits)+"s", Integer.toBinaryString(b)).replace(' ', '0');            
-            Long result = 0L;
-            result += numbers.get(i).get(0);
-            for(int x=1; x<digits; x++) {
-                if (binNum.charAt(x-1)=='0') {
-                    result += numbers.get(i).get(x);
-                } else {
-                    result *= numbers.get(i).get(x);
-                }            
-            }
-            
-            System.out.println(result);
-        }
-        
-        break;
-    }
-        
+        long total = 0L;
 
+        for(int i=0;i<results.size();i++) {
+            
+            System.out.println(results.get(i));
+            System.out.println(numbers.get(i));
+            
+            int digits = (numbers.get(i).size()-1);
+            
+            for(int b=0;b<Math.pow(2,digits); b++) {        
+                String binNum = String.format(Character.toString(37)+Integer.toString(digits)+"s", Integer.toBinaryString(b)).replace(' ', '0');            
+                long current = 0L;
+                current += numbers.get(i).get(0);
+                System.out.print(current);
+                
+                for(int x=1; x<digits+1; x++) {
+                    if (binNum.charAt(x-1)=='0') {
+                        current += numbers.get(i).get(x);
+                        System.out.print("+");
+                    } else {
+                        current *= numbers.get(i).get(x);
+                        System.out.print("*");
+                    }            
+                    System.out.print(numbers.get(i).get(x));                
+                }
+                
+                System.out.println("="+current +", "+ results.get(i));
+
+                System.out.println(current==results.get(i));
+                
+            }
+        }
     }
 }
