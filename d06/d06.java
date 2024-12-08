@@ -7,20 +7,24 @@ class d06 {
 
         // read file into array
         
-        int width=10;
-        int height=10;
+        int width=130;
+        int height=130;
         
         char[][] map = new char[height][width];	
         char[][] copy = new char[height][width];
+        char[][] archive = new char[height][width];
+        
 
         try (	
-                BufferedReader reader = new BufferedReader(new FileReader("sample.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
         ) {
                 String line;
                 int i=0;
                 while((line = reader.readLine()) != null) {
                     map[i] = line.toCharArray();
                     copy[i] = line.toCharArray();
+                    archive[i] = line.toCharArray();
+
                     i++; 
                 }
                 reader.close();
@@ -98,8 +102,12 @@ class d06 {
 
                 int steps=0;
                 
-                if (map[y][x] != '#' && y != initY && x != initX) {
-                
+                if (map[y][x] != '#' && map[y][x] != '^') {
+
+                    for (int i=0; i<height; i++) {                    
+                        System.arraycopy(archive[i], 0, map[i], 0, width);
+                    }
+                                    
                     map[y][x] = '#';
                 
                     // 0 .. up; 1 .. right; 2 .. down; 3 .. left;
@@ -135,7 +143,7 @@ class d06 {
                         
                         steps++;
                         
-                        if (steps>69) {
+                        if (steps>width*height*5) {
                             obstacles++;
                             break;
                         }
