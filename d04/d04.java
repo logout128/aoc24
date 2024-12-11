@@ -6,8 +6,7 @@ class d04 {
 
     public static void main(String[] args) {
 
-        // read file into string with respecting of line ends
-        
+        // read file into string with respecting of line ends        
         int width=0, height=0;
         String data = new String();
         StringBuilder builder = new StringBuilder();        
@@ -39,14 +38,11 @@ class d04 {
 
         try {        
             while ((line = bufReader.readLine()) != null) {
-
                 // counting two directions: horizontal forwards and backwars
                 Matcher xmasMat = xmasPat.matcher(line);       
-                Matcher samxMat = samxPat.matcher(line);
-                
+                Matcher samxMat = samxPat.matcher(line);                
                 count += xmasMat.results().count();
                 count += samxMat.results().count();
-
                 // rotating matrix                
                 for(x=0;x<line.length();x++) {
                     matrix[x][y] = line.charAt(x);
@@ -116,21 +112,14 @@ class d04 {
                 }
                 else if(matrix[x][y]=='S' && matrix[x+1][y+1]=='A' && matrix[x+2][y+2]=='M' && matrix[x+2][y]=='M' && matrix[x][y+2]=='S') {
                     cross++;
-                }
-                
-                
+                }                                
             }
         }
-
-        
+      
         System.out.print("XMAS count: ");
         System.out.print(count);
         System.out.print("\t");
         System.out.print("Cross count: ");
         System.out.println(cross);
-
-//        System.out.println(rotated);
-
-        
     }    
 }
