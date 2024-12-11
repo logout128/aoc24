@@ -30,7 +30,7 @@ class d05 {
         ArrayList<ArrayList<Integer>> values = new ArrayList();
 
         try (	
-                BufferedReader reader = new BufferedReader(new FileReader("sample.txt"));
+                BufferedReader reader = new BufferedReader(new FileReader("input.txt"));
         ) {
                 String line;
                 while((line = reader.readLine()) != null) {                
@@ -81,18 +81,21 @@ class d05 {
 
         System.out.print("Part one result:");        
         System.out.println(cResult);        
-        
+
+        // iterate through unsorted lines        
         for (ArrayList<Integer> valueLine : incorrect) {    
+            //iterate through numbers in line
             for (int v=1; v<valueLine.size(); v++) {            
                 int f = validateNumber(rules, valueLine, v);
-                
-                while (f>=0) {
-                    Collections.swap(valueLine, v, f);
-                    f = validateNumber(rules, valueLine, v);                                        
-                }
-                
-                iResult += getMiddleMember(valueLine);
-            }    
+                // if two numbers are not in the right order
+                if (f>=0) {
+                    // swap them
+                    Collections.swap(valueLine, f, v);                   
+                    // and start from the beginning again
+                    v = 1;                    
+                } 
+            }
+            iResult += getMiddleMember(valueLine);
         }
 
         System.out.print("Part two result:");        
