@@ -9,12 +9,12 @@ class d11 {
 
         ArrayList<String> oldBlink;
         ArrayList<ArrayList<Long>> shorts = new ArrayList();
-        
+            
         for (int n = 0; n<10; n++) {
             ArrayList<Long> shortLine = new ArrayList<Long>();            
             oldBlink = new ArrayList<String>();
             oldBlink.add(Integer.toString(n));
-            for (int i=0;i<35; i++) {            
+            for (int i=0;i<40; i++) {            
                 ArrayList<String> newBlink = new ArrayList<String>();
                 for (int s=0; s<oldBlink.size(); s++) {
                     String stone = oldBlink.get(s);
@@ -44,7 +44,7 @@ class d11 {
         int mmax=34;
 
         for (int i=0;i<=mmax; i++) {
-        
+            System.out.println(i);
             ArrayList<String> newBlink = new ArrayList<String>();
             
             for (int s=0; s<oldBlink.size(); s++) {
@@ -63,29 +63,12 @@ class d11 {
                 }                
             }          
             oldBlink = newBlink;                        
-            
-            if (i != mmax) {
-                for (int x=0;x<oldBlink.size();x++) {
-                    Long stone = Long.parseLong(oldBlink.get(x));
-                    if (stone < 10) {
-                        size += shorts.get(Integer.parseInt(oldBlink.get(x))).get(mmax-(i+1));
-                        oldBlink.remove(x);
-                        x--;
-                    }
-                }
-            
-            }
-            
-            if(oldBlink.size()==0) {
-                break;
-            }
-                         
         }        
 
-        mmax=34;
+        mmax=39;
 
         for (int i=0;i<=mmax; i++) {
-        
+            System.out.println(i);
             ArrayList<String> newBlink = new ArrayList<String>();
             
             for (int s=0; s<oldBlink.size(); s++) {
@@ -123,49 +106,8 @@ class d11 {
                          
         }     
            
-        mmax=14;
-
-        for (int i=0;i<=mmax; i++) {
-        
-            ArrayList<String> newBlink = new ArrayList<String>();
-            
-            for (int s=0; s<oldBlink.size(); s++) {
-                String stone = oldBlink.get(s);                
-                if (stone.equals("0")) {
-                    newBlink.add("1"); 
-                } else if (stone.length() %2 == 0) {                
-                    Long firstHalf = Long.parseLong(stone.substring(0, stone.length()/2));
-                    Long secondHalf = Long.parseLong(stone.substring(stone.length()/2));
-                    newBlink.add(firstHalf.toString());
-                    newBlink.add(secondHalf.toString());
-                } else {
-                    Long numStone = Long.parseLong(stone);
-                    numStone *= 2024L;
-                    newBlink.add(numStone.toString());
-                }                
-            }          
-            oldBlink = newBlink;                        
-            
-            if (i != mmax) {
-                for (int x=0;x<oldBlink.size();x++) {
-                    Long stone = Long.parseLong(oldBlink.get(x));
-                    if (stone < 10) {
-                        size += shorts.get(Integer.parseInt(oldBlink.get(x))).get(mmax-(i+1));
-                        oldBlink.remove(x);
-                        x--;
-                    }
-                }
-            
-            }
-            
-            if(oldBlink.size()==0) {
-                break;
-            }
-                         
-        }        
-
-        
-     System.out.println(oldBlink.size()+size);
+        System.out.println(oldBlink.size());
+        System.out.println(oldBlink.size()+size);
         
         
         
